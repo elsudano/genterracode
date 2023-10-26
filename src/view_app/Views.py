@@ -32,21 +32,21 @@ class FirstView(View):
     def _init_view(self):
         """Initialating the view.
         """
-        self._change_size(800,300)
+        self._change_size(640,560)
         self._default_config()
         # ----------------------------------------------------------------------------------
-        self.t_question = text(self._principal_frame, relief='solid')
-        self.t_question.grid(column=0, row=0, columnspan=12, sticky='NESW')
-        self.l_answer = ttk.Label(self._principal_frame, relief='solid', text="Request Answer")
-        self.l_answer.grid(column=0, row=1, columnspan=12, sticky='NESW')
+        self.t_question = text(self._principal_frame, relief='solid', height=15)
+        self.t_question.grid(column=0, row=0, rowspan=2, columnspan=12, sticky='N')
+        self.t_answer = text(self._principal_frame, relief='solid', height=15, state="disabled")
+        self.t_answer.grid(column=0, row=3, rowspan=2, columnspan=12, sticky='N')
         self.b_submit = ttk.Button(self._principal_frame, text="Request Answer")
-        self.b_submit.grid(column=0, row=2, sticky='NESW')
+        self.b_submit.grid(column=0, row=6, columnspan=1, sticky='E')
         self.b_submit.bind("<Button>", self._controller.request_answer)
         self.b_reset = ttk.Button(self._principal_frame, text="Reset Tokens")
-        self.b_reset.grid(column=1, row=2, sticky='NESW')
+        self.b_reset.grid(column=1, row=6, columnspan=1, sticky='E')
         self.b_reset.bind("<Button>", self._controller.reset)
         self.b_help = ttk.Button(self._principal_frame, text="I need help")
-        self.b_help.grid(column=2, row=2, sticky='NESW')
+        self.b_help.grid(column=2, row=6, columnspan=1, sticky='E')
         self.b_help.bind("<Button>", self._controller.openai_help)
 
     def get_question(self):
@@ -56,11 +56,12 @@ class FirstView(View):
         self.t_question.delete('1.0', constants.END)
 
     def set_question(self, question):
-        self.t_question.delete('1.0', constants.END)
         self.t_question.insert('1.0', question)
     
     def set_answer(self, answer):
-        self.l_answer.config(text=answer)
+        self.t_answer.config(state="normal")
+        self.t_answer.insert('1.0', answer)
+        self.t_answer.config(state="disabled")
 
 class SecondView(View):
     """View to manage other things"""

@@ -4,7 +4,7 @@
 
 We have all the models that we will need in our application.
 """
-
+from src.Constants import DEBUG
 from src.model.Model import *
 
 class MainModel(Model):
@@ -24,8 +24,8 @@ class FirstModel(Model):
     def _init_model(self):
         openai.organization = os.getenv('OPENAI_ORGANIZATION')
         openai.api_key = os.getenv('OPENAI_API_KEY')
-        print('ORG:{}, API:{}'.format(openai.organization, openai.api_key))
-        # pass
+        if DEBUG:
+            print('ORG:{}, API:{}'.format(openai.organization, openai.api_key))
 
     def get_completion(self, prompt, model="gpt-3.5-turbo", temperature=0): 
         messages = [{"role": "user", "content": prompt}]
@@ -33,9 +33,9 @@ class FirstModel(Model):
             model=model,
             messages=messages,
             temperature=temperature,
-            max_tokens=1,
+            max_tokens=100,
         )
-        return response.choices[0]#.message['content']
+        return response.choices[0].message['content']
     
     def openai_help(self):
         return openai.Model.list()
