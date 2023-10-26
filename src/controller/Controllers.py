@@ -78,7 +78,7 @@ class FirstController(Controller):
         self._view.set_answer(answer='')
 
     def openai_help(self, event):
-        self._view.set_question(self._model.openai_help())
+        self._view.set_answer(self._model.openai_help())
 
 class SecondController(Controller):
     
