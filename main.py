@@ -12,8 +12,6 @@ from src.model.Models import MainModel
 from src.view_app.Views import MainView
 
 if __name__ == '__main__':
-    global DEBUG # Global debug variable to set in anywhere of our application.
-    DEBUG = True
     # Creating the main window.
     myWindow = w("My first Application of AI", 300, 170)
     # Creating the empty model.
